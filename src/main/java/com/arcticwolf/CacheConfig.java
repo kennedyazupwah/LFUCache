@@ -7,7 +7,7 @@ package com.arcticwolf;
 public class CacheConfig {
     private final long entryExpirationTimeSeconds;
     private final int maxCacheCapacity;
-    private final static int CACHE_ENTRY_EXPIRY_TIME = 1;
+    private final static int CACHE_ENTRY_EXPIRY_TIME = 300;
 
     /**
      * Constructs a new CacheConfig with specified settings.

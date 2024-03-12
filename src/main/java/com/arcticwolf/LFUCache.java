@@ -226,17 +226,16 @@ public class LFUCache<K,V> implements Cache<K,V> {
                     Thread.sleep(CacheConfig.getCacheEntryExpiryTime());
                     long currentTime = System.currentTimeMillis();
 
-                    // Directly remove expired entries
+                    // This part remove expired entries
                     cache.entrySet().removeIf(entry ->
                             currentTime - entry.getValue().getCreationTime() >= CacheConfig.getCacheEntryExpiryTime());
 
                 } catch (InterruptedException e) {
-                    // Properly handle interrupted exception
                     Thread.currentThread().interrupt();
                 }
             }
         });
-        expiryCleanupThread.setDaemon(true); // Ensure the thread does not prevent JVM shutdown
+        expiryCleanupThread.setDaemon(true);
         expiryCleanupThread.start();
     }
 }
