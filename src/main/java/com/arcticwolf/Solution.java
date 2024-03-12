@@ -23,7 +23,7 @@ public class Solution {
 
     private static void testPutAndGetOperations() {
         System.out.println("Starting Unit testPutAndGetOperations()...");
-        CacheConfig config = new CacheConfig(10,10);
+        CacheConfig config = new CacheConfig(10,2);
 
         LFUCache<String, Integer> intCache = new LFUCache<>(config);
         LFUCache<String, String> stringCache = new LFUCache<>(config);
@@ -59,7 +59,7 @@ public class Solution {
 
     private static void testKeyNotPresent() {
         System.out.println("Running Unit testKeyNotPresent()...");
-        CacheConfig config = new CacheConfig(10,10);
+        CacheConfig config = new CacheConfig(10,2);
 
         LFUCache<String, Integer> intCache = new LFUCache<>(config);
 
@@ -79,7 +79,7 @@ public class Solution {
 
     public static void testRemoveMethod() {
         System.out.println("Running Unit testRemoveMethod()...");
-        CacheConfig config = new CacheConfig(10,10);
+        CacheConfig config = new CacheConfig(10,2);
 
         LFUCache<String, Integer> cache = new LFUCache<>(config);
         String testKey = "testKey";
@@ -98,7 +98,7 @@ public class Solution {
 
     public static void testClearMethod() {
         System.out.println("Running Unit testClearMethod()...");
-        CacheConfig config = new CacheConfig(10,10);
+        CacheConfig config = new CacheConfig(10,4);
 
         LFUCache<String, Integer> cache = new LFUCache<>(config);
 
@@ -210,22 +210,18 @@ public class Solution {
 
         LFUCache<String, Integer> cache = new LFUCache<>(config);
 
-        // Add entries
         cache.put("key1", 1);
         cache.put("key2", 2);
         cache.put("key3", 3);
 
-        // Test size after adding entries
         if (cache.size() == 3) {
             System.out.println("Test PASSED: Correct size after adding entries.");
         } else {
             System.out.println("Test FAILED: Incorrect size after adding entries.");
         }
 
-        // Remove an entry
         cache.remove("key2");
 
-        // Test size after removing an entry
         if (cache.size() == 2) {
             System.out.println("Test PASSED: Correct size after removing an entry.");
         } else {
