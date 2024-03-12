@@ -20,7 +20,7 @@ These methods provide a comprehensive API for interacting with the cache, coveri
 ConcurrentHashMap was chosen for storing cache entries due to its high concurrency level and thread-safety features. It allows concurrent read and write operations without the need for explicit synchronization, making it ideal for high-performance caching solutions where multiple threads may access the cache simultaneously.
 
 #### Choice of DoublyLinkedList for Frequency Map Tracker
-A DoublyLinkedList is used in conjunction with the frequency map tracker to efficiently manage the order of cache entries based on their access frequencies. This data structure supports constant time insertions and deletions, which are essential for updating the frequency of cache entries dynamically. The choice of a doubly-linked list allows for quick movement of entries between frequency buckets, optimizing the performance of frequency-based eviction.
+A DoublyLinkedList is used as the frequency map tracker to efficiently manage the order of cache entries based on their access frequencies. This data structure supports constant time insertions and deletions, which are essential for updating the frequency of cache entries dynamically. The choice of a doubly-linked list allows for quick movement of entries between frequency buckets, optimizing the performance of frequency-based eviction.
 
 ## Known Issues with the Current Implementation
 - Lack of Linter: Currently, the project does not incorporate a linter tool, which could lead to inconsistent coding styles and unnoticed syntax errors. Integrating a linter would help enforce coding standards and improve code quality.
