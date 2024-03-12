@@ -7,7 +7,7 @@ package com.arcticwolf;
  * @param <K> the type of keys maintained by this cache list
  * @param <V> the type of mapped values
  */
-public class LFUDoublyLinkedListCacheList<K,V> {
+public class LFUDoublyLinkedListFrequencyTracker<K,V> {
     private int count;
     private CacheNode<K, V> first;
     private CacheNode<K, V> last;

@@ -51,7 +51,7 @@ public class Solution {
             assertEquals(personCache.get("person1"), person1);
             assertEquals(personCache.get("person2"), person2);
 
-            System.out.println("Test SUCCEEDED");
+            System.out.println("Test PASSED");
         } catch (IllegalStateException e) {
             System.out.printf("Test FAILED: %s%n", e.getMessage());
         }
@@ -71,7 +71,7 @@ public class Solution {
             Integer value = intCache.get("nonExistingKey");
             assertEquals(value, null);
 
-            System.out.println("Test SUCCEEDED: Correctly handled non-existing key.");
+            System.out.println("Test PASSED: Correctly handled non-existing key.");
         } catch (IllegalStateException e) {
             System.out.printf("Test FAILED: %s%n", e.getMessage());
         }
@@ -140,7 +140,7 @@ public class Solution {
 
             assertEquals(evictedValue, null);
 
-            System.out.println("Test SUCCEEDED: Correct LFU entry eviction.");
+            System.out.println("Test PASSED: Correct LFU entry eviction.");
         } catch (IllegalStateException e) {
             System.out.printf("Test FAILED: %s%n", e.getMessage());
         }
@@ -173,7 +173,7 @@ public class Solution {
             assertEquals(valueEvicted, null);
             assertEquals(valueNotEvicted, 1);
 
-            System.out.println("Test SUCCEEDED: LFU eviction with LRU tie-breaker is working as expected.");
+            System.out.println("Test PASSED: LFU eviction with LRU tie-breaker is working as expected.");
         } catch (Exception e) {
             System.out.printf("Test FAILED: %s%n", e.getMessage());
         }

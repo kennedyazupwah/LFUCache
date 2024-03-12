@@ -22,9 +22,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  */
 public class LFUCache<K,V> implements Cache<K,V> {
     private final int maxCacheCapacity;
-    private final long entryExpirationTimeMillis;
     private final Map<K, CacheNode<K, V>> cache;
-    private final ConcurrentSkipListMap<Integer, LFUDoublyLinkedListCacheList<K, V>> frequencyTrackerMap;
+    private final ConcurrentSkipListMap<Integer, LFUDoublyLinkedListFrequencyTracker<K, V>> frequencyTrackerMap;
     private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 
 
@@ -32,7 +31,6 @@ public class LFUCache<K,V> implements Cache<K,V> {
         if (config.getEntryExpirationTimeSeconds() <= 0 || config.getMaxCacheCapacity() <= 0) {
             throw new IllegalArgumentException("Positive Integers are Expected");
         }
-        entryExpirationTimeMillis = config.getEntryExpirationTimeSeconds() * 1000L;
         maxCacheCapacity = config.getMaxCacheCapacity();
         cache = new ConcurrentHashMap<>(maxCacheCapacity);
         frequencyTrackerMap = new ConcurrentSkipListMap<>();
@@ -149,7 +147,7 @@ public class LFUCache<K,V> implements Cache<K,V> {
         lock.writeLock().lock();
 
         int currentFreq = entry.getAccessFrequency();
-        LFUDoublyLinkedListCacheList<K, V> matchedItemsWithFrequency = frequencyTrackerMap.get(currentFreq);
+        LFUDoublyLinkedListFrequencyTracker<K, V> matchedItemsWithFrequency = frequencyTrackerMap.get(currentFreq);
         if (matchedItemsWithFrequency != null) {
             matchedItemsWithFrequency.removeEntry(entry);
             if (matchedItemsWithFrequency.isEmpty()) {
@@ -160,9 +158,9 @@ public class LFUCache<K,V> implements Cache<K,V> {
         // Increment frequency
         int newFreq = currentFreq + 1;
         entry.setAccessFrequency(newFreq);
-        LFUDoublyLinkedListCacheList<K, V> updatedListWithNewFreq = frequencyTrackerMap.get(newFreq);
+        LFUDoublyLinkedListFrequencyTracker<K, V> updatedListWithNewFreq = frequencyTrackerMap.get(newFreq);
         if (updatedListWithNewFreq == null) {
-            updatedListWithNewFreq = new LFUDoublyLinkedListCacheList<>();
+            updatedListWithNewFreq = new LFUDoublyLinkedListFrequencyTracker<>();
             frequencyTrackerMap.put(newFreq, updatedListWithNewFreq);
         }
         updatedListWithNewFreq.addEntry(entry);
@@ -190,7 +188,7 @@ public class LFUCache<K,V> implements Cache<K,V> {
         lock.writeLock().lock();
         try {
             Integer leastFrequency = frequencyTrackerMap.firstKey();
-            LFUDoublyLinkedListCacheList<K, V> matchedFreqEntry = frequencyTrackerMap.get(leastFrequency);
+            LFUDoublyLinkedListFrequencyTracker<K, V> matchedFreqEntry = frequencyTrackerMap.get(leastFrequency);
             if (matchedFreqEntry != null && !matchedFreqEntry.isEmpty()) {
                 CacheNode<K, V> toRemove = matchedFreqEntry.removeLRU();
                 if (toRemove != null) {
