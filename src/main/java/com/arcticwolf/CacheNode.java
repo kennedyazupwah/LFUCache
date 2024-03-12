@@ -1,5 +1,13 @@
 package com.arcticwolf;
 
+/**
+ * Represents a node in a caching system, designed to store key-value pairs along with metadata such as access frequency
+ * and creation time. This class is intended to be used in cache implementations that require tracking of usage statistics,
+ * such as Least Frequently Used (LFU) caches.
+ *
+ * @param <K> the type of keys maintained by this cache node
+ * @param <V> the type of mapped values
+ */
 public class CacheNode<K,V> {
     private final K key;
     private V value;

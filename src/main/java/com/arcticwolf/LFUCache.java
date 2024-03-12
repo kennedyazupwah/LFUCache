@@ -225,12 +225,12 @@ public class LFUCache<K,V> implements Cache<K,V> {
         Thread expiryCleanupThread = new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
                 try {
-                    Thread.sleep(CacheConfig.getExpiryTime());
+                    Thread.sleep(CacheConfig.getCacheEntryExpiryTime());
                     long currentTime = System.currentTimeMillis();
 
-                    // Directly remove expired entries using removeIf
+                    // Directly remove expired entries
                     cache.entrySet().removeIf(entry ->
-                            currentTime - entry.getValue().getCreationTime() >= CacheConfig.getExpiryTime());
+                            currentTime - entry.getValue().getCreationTime() >= CacheConfig.getCacheEntryExpiryTime());
 
                 } catch (InterruptedException e) {
                     // Properly handle interrupted exception
