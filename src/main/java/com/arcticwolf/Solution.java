@@ -38,14 +38,14 @@ public class Solution {
             assertEquals(intCache.get("two"), 2);
 
             // Test with strings
-            stringCache.put("hello", "World");
-            stringCache.put("foo", "Bar");
-            assertEquals(stringCache.get("hello"), "World");
-            assertEquals(stringCache.get("foo"), "Bar");
+            stringCache.put("Kennedy", "Azupwah");
+            stringCache.put("Arctic", "Wolf");
+            assertEquals(stringCache.get("Kennedy"), "Azupwah");
+            assertEquals(stringCache.get("Arctic"), "Wolf");
 
             // Test with custom objects
-            Person person1 = new Person("John Doe", 30);
-            Person person2 = new Person("Jane Doe", 25);
+            Person person1 = new Person("Kennedy Azupwah", 27);
+            Person person2 = new Person("Arctic Wolf", 25);
             personCache.put("person1", person1);
             personCache.put("person2", person2);
             assertEquals(personCache.get("person1"), person1);
